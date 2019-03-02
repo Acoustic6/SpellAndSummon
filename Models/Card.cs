@@ -10,7 +10,5 @@ namespace SpellAndSummon.Models
         [Required]
         [StringLength(255)]
         public string Name { get; set; }
-        public Deck Deck {get; set;}
-        public int DeckId {get; set;}
     }
 }

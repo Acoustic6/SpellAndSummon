@@ -10,5 +10,12 @@ namespace SpellAndSummon.Persistence
             :base(options)
         {
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<CardDeck>().HasKey(cd => new {
+                cd.CardId, cd.DeckId
+            });
+        }
     }
 }

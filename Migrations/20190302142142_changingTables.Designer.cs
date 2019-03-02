@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SpellAndSummon.Persistence;
 
 namespace SpellAndSummon.Migrations
 {
     [DbContext(typeof(SummonDbContext))]
-    partial class SummonDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190302142142_changingTables")]
+    partial class changingTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,26 +26,17 @@ namespace SpellAndSummon.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("DeckId");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(255);
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cards");
-                });
-
-            modelBuilder.Entity("SpellAndSummon.Models.CardDeck", b =>
-                {
-                    b.Property<int>("CardId");
-
-                    b.Property<int>("DeckId");
-
-                    b.HasKey("CardId", "DeckId");
-
                     b.HasIndex("DeckId");
 
-                    b.ToTable("CardDeck");
+                    b.ToTable("Cards");
                 });
 
             modelBuilder.Entity("SpellAndSummon.Models.Deck", b =>
@@ -61,15 +54,10 @@ namespace SpellAndSummon.Migrations
                     b.ToTable("Decks");
                 });
 
-            modelBuilder.Entity("SpellAndSummon.Models.CardDeck", b =>
+            modelBuilder.Entity("SpellAndSummon.Models.Card", b =>
                 {
-                    b.HasOne("SpellAndSummon.Models.Card", "Card")
-                        .WithMany()
-                        .HasForeignKey("CardId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("SpellAndSummon.Models.Deck", "Deck")
-                        .WithMany("CardDecks")
+                        .WithMany("Cards")
                         .HasForeignKey("DeckId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
