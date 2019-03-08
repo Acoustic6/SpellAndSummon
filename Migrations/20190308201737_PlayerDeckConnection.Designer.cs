@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SpellAndSummon.Persistence;
 
 namespace SpellAndSummon.Migrations
 {
     [DbContext(typeof(SummonDbContext))]
-    partial class SummonDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190308201737_PlayerDeckConnection")]
+    partial class PlayerDeckConnection
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,15 +73,11 @@ namespace SpellAndSummon.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Name")
-                        .HasMaxLength(255);
+                    b.Property<string>("Name");
 
-                    b.Property<string>("NickName")
-                        .IsRequired()
-                        .HasMaxLength(255);
+                    b.Property<string>("NickName");
 
-                    b.Property<string>("Surname")
-                        .HasMaxLength(255);
+                    b.Property<string>("Surname");
 
                     b.HasKey("Id");
 
