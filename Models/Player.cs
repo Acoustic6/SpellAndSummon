@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace SpellAndSummon.Models
@@ -14,5 +15,6 @@ namespace SpellAndSummon.Models
         [StringLength(255)]
         public string NickName { get; set; }
         public ICollection<Deck> Decks { get; set; }
+        public Player() => Decks = new Collection<Deck>();
     }
 }
