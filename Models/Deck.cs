@@ -10,9 +10,9 @@ namespace SpellAndSummon.Models
         [Required]
         [StringLength(255)]
         public string Name { get; set; }
-        public ICollection<DeckSlot> Slots {get; set;}
+        public ICollection<DeckSlot> DeckSlots {get; set;}
         public int PlayerId { get; set; }
         public Player Player { get; set; }
-        public Deck() => this.Slots = new Collection<DeckSlot>();
+        public Deck() => DeckSlots = new Collection<DeckSlot>();
     }
 }

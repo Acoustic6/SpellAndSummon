@@ -7,6 +7,7 @@ namespace SpellAndSummon.Persistence
     {
         public DbSet<Player> Players { get; set; }
         public DbSet<Deck> Decks { get; set; }
+        public DbSet<DeckSlot> DeckSlots { get; set; }
         public DbSet<Card> Cards { get; set; }
         public SummonDbContext(DbContextOptions<SummonDbContext> options)
             :base(options)

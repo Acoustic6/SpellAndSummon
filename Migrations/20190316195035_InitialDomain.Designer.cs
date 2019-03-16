@@ -9,8 +9,8 @@ using SpellAndSummon.Persistence;
 namespace SpellAndSummon.Migrations
 {
     [DbContext(typeof(SummonDbContext))]
-    [Migration("20190311202652_ConnectDecksAndCardsViaDeckSlots")]
-    partial class ConnectDecksAndCardsViaDeckSlots
+    [Migration("20190316195035_InitialDomain")]
+    partial class InitialDomain
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -60,11 +60,11 @@ namespace SpellAndSummon.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("Amount");
+
                     b.Property<int>("CardId");
 
                     b.Property<int>("DeckId");
-
-                    b.Property<int>("Position");
 
                     b.HasKey("Id");
 
@@ -72,7 +72,7 @@ namespace SpellAndSummon.Migrations
 
                     b.HasIndex("DeckId");
 
-                    b.ToTable("DeckSlot");
+                    b.ToTable("DeckSlots");
                 });
 
             modelBuilder.Entity("SpellAndSummon.Models.Player", b =>
@@ -107,12 +107,12 @@ namespace SpellAndSummon.Migrations
             modelBuilder.Entity("SpellAndSummon.Models.DeckSlot", b =>
                 {
                     b.HasOne("SpellAndSummon.Models.Card", "Card")
-                        .WithMany()
+                        .WithMany("DeckSlots")
                         .HasForeignKey("CardId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("SpellAndSummon.Models.Deck", "Deck")
-                        .WithMany("Slots")
+                        .WithMany("DeckSlots")
                         .HasForeignKey("DeckId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
