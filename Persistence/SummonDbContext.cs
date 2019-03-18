@@ -9,6 +9,7 @@ namespace SpellAndSummon.Persistence
         public DbSet<Deck> Decks { get; set; }
         public DbSet<DeckSlot> DeckSlots { get; set; }
         public DbSet<Card> Cards { get; set; }
+        public DbSet<SpecialAbility> SpecialAbilities { get; set; }
         public SummonDbContext(DbContextOptions<SummonDbContext> options)
             :base(options)
         {
@@ -16,6 +17,8 @@ namespace SpellAndSummon.Persistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<SpecialAbilityCard>()
+                .HasKey(e => new {e.CardId, e.SpecialAbilityId});
         }
     }
 }
