@@ -24,9 +24,11 @@ namespace SpellAndSummon.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Atack");
+                    b.Property<string>("CardText")
+                        .IsRequired()
+                        .HasMaxLength(255);
 
-                    b.Property<int>("Healt");
+                    b.Property<int>("CardType");
 
                     b.Property<int>("ManaCost");
 
@@ -37,6 +39,27 @@ namespace SpellAndSummon.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Cards");
+                });
+
+            modelBuilder.Entity("SpellAndSummon.Models.CardDeck", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Amount");
+
+                    b.Property<int>("CardId");
+
+                    b.Property<int>("DeckId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CardId");
+
+                    b.HasIndex("DeckId");
+
+                    b.ToTable("CardDecks");
                 });
 
             modelBuilder.Entity("SpellAndSummon.Models.Deck", b =>
@@ -56,27 +79,6 @@ namespace SpellAndSummon.Migrations
                     b.HasIndex("PlayerId");
 
                     b.ToTable("Decks");
-                });
-
-            modelBuilder.Entity("SpellAndSummon.Models.DeckSlot", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("Amount");
-
-                    b.Property<int>("CardId");
-
-                    b.Property<int>("DeckId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CardId");
-
-                    b.HasIndex("DeckId");
-
-                    b.ToTable("DeckSlots");
                 });
 
             modelBuilder.Entity("SpellAndSummon.Models.Player", b =>
@@ -106,9 +108,7 @@ namespace SpellAndSummon.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(255);
+                    b.Property<string>("Name");
 
                     b.HasKey("Id");
 
@@ -128,24 +128,24 @@ namespace SpellAndSummon.Migrations
                     b.ToTable("SpecialAbilityCards");
                 });
 
+            modelBuilder.Entity("SpellAndSummon.Models.CardDeck", b =>
+                {
+                    b.HasOne("SpellAndSummon.Models.Card", "Card")
+                        .WithMany("CardDecks")
+                        .HasForeignKey("CardId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("SpellAndSummon.Models.Deck", "Deck")
+                        .WithMany("CardDecks")
+                        .HasForeignKey("DeckId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("SpellAndSummon.Models.Deck", b =>
                 {
                     b.HasOne("SpellAndSummon.Models.Player", "Player")
                         .WithMany("Decks")
                         .HasForeignKey("PlayerId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("SpellAndSummon.Models.DeckSlot", b =>
-                {
-                    b.HasOne("SpellAndSummon.Models.Card", "Card")
-                        .WithMany("DeckSlots")
-                        .HasForeignKey("CardId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("SpellAndSummon.Models.Deck", "Deck")
-                        .WithMany("DeckSlots")
-                        .HasForeignKey("DeckId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

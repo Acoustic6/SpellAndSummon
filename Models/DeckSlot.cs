@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SpellAndSummon.Models
 {
-    public class DeckSlot
+    public class CardDeck
     {
         public int Id { get; set; }
         [Range(1, 100, ErrorMessage = "The number of cards copies must be greater than 0")]

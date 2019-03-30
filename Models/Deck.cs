@@ -12,7 +12,7 @@ namespace SpellAndSummon.Models
         public string Name { get; set; }
         public int PlayerId { get; set; }
         public Player Player { get; set; }
-        public ICollection<DeckSlot> DeckSlots {get; set;}
-        public Deck() => DeckSlots = new Collection<DeckSlot>();
+        public ICollection<CardDeck> CardDecks {get; set;}
+        public Deck() => CardDecks = new Collection<CardDeck>();
     }
 }
