@@ -7,7 +7,6 @@ namespace SpellAndSummon.Models
     {
         public int Id { get; set; }
         [Range(1, 100, ErrorMessage = "The number of cards copies must be greater than 0")]
-        public int Amount { get; set; }
         [Required]
         public int CardId { get; set; }
         public Card Card { get; set; }
