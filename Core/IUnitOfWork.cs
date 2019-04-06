@@ -1,11 +1,12 @@
+using System;
 using System.Threading.Tasks;
 
 namespace SpellAndSummon.Core
 {
-    public interface IUnitOfWork
+    public interface IUnitOfWork: IDisposable
     {
-        ICardsRepository cardsRepository { get; }
-        void SaveChanges();
-        Task SaveChangesAsync();
+        ICardsRepository Cards { get; }
+        void Complete();
+        Task CompleteAsync();
     }
 }
