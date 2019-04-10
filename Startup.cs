@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SpellAndSummon.Core;
 using SpellAndSummon.Persistence;
 
 namespace SpellAndSummon
@@ -23,6 +24,7 @@ namespace SpellAndSummon
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddAutoMapper();
             services.AddDbContext<SummonDbContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("Default"))

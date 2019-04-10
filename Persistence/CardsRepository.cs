@@ -10,9 +10,27 @@ namespace SpellAndSummon.Persistence
 {
     public class CardsRepository : Repository<Card, int>, ICardsRepository
     {
-        public CardsRepository(DbContext _context)
-            : base(_context)
+        private SummonDbContext _context 
+        { 
+            get
+            {
+                return Context as SummonDbContext;
+            }
+        }    
+        public CardsRepository(SummonDbContext context)
+            : base(context)
         {
+        }
+
+        public async Task<IEnumerable<Card>> GetAllAsync(bool includeAbilities = false)
+        {
+            if (!includeAbilities)
+                return await base.GetAllAsync();
+
+            return await _context.Cards
+                .Include(c => c.SpecialAbilityCards)
+                    .ThenInclude(sc => sc.SpecialAbility)
+                .ToListAsync();
         }
     }
 }

@@ -4,50 +4,51 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using SpellAndSummon.Core;
 
 namespace SpellAndSummon.Persistence
 {
-    public class Repository<TEntity, TId> 
+    public class Repository<TEntity, TId>: IRepository<TEntity, TId>
         where TEntity: class
     {
-        protected readonly DbContext _context;
-        private readonly DbSet<TEntity> _entities;
+        protected readonly DbContext Context;
+        private readonly DbSet<TEntity> Entities;
         public Repository(DbContext context)
         {
-            this._context = context;
-            _entities = this._context.Set<TEntity>();
+            this.Context = context;
+            Entities = this.Context.Set<TEntity>();
         }
         public void Add(TEntity entity)
         {
-            _context.Add(entity);
+            Context.Add(entity);
         }
         public async Task AddAsync(TEntity entity)
         {
-            await _context.AddAsync(entity);
+            await Context.AddAsync(entity);
         }
         public void Remove(TEntity entity)
         {
-            _context.Remove(entity);
+            Context.Remove(entity);
         }
         public TEntity Get(TId id)
         {
-            return _entities.Find(id);
+            return Entities.Find(id);
         }
         public async Task<TEntity> GetAsync(System.Int32 id)
         {
-            return await _entities.FindAsync(id);
+            return await Entities.FindAsync(id);
         }
         public IEnumerable<TEntity> GetAll()
         {
-            return _entities.ToList();
+            return Entities.ToList();
         }
-        public async Task<IList<TEntity>> GetAllAsync()
+        public async Task<IEnumerable<TEntity>> GetAllAsync()
         {
-            return await _entities.ToListAsync();
+            return await Entities.ToListAsync();
         }
         public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
         {
-            return _entities.Where(predicate).ToList();
+            return Entities.Where(predicate).ToList();
         }
     }
 }

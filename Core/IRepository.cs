@@ -14,7 +14,7 @@ namespace SpellAndSummon.Core
         TEntity Get(TId id);
         Task<TEntity> GetAsync(System.Int32 id);
         IEnumerable<TEntity> GetAll();
-        Task<IList<TEntity>> GetAllAsync();
+        Task<IEnumerable<TEntity>> GetAllAsync();
         IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate);
     }
 }

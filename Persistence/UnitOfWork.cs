@@ -6,23 +6,23 @@ namespace SpellAndSummon.Persistence {
     public class UnitOfWork: IUnitOfWork 
     {
         public ICardsRepository Cards { get; private set; }
-        private readonly SummonDbContext _context;
+        private readonly SummonDbContext Context;
         public UnitOfWork (SummonDbContext context) 
         {
-            this._context = context;
-            this.Cards = new CardsRepository(_context);
+            this.Context = context;
+            this.Cards = new CardsRepository(Context);
         }
         public void Complete()
         {
-            _context.SaveChanges();
+            Context.SaveChanges();
         }
         public async Task CompleteAsync()
         {
-            await _context.SaveChangesAsync();
+            await Context.SaveChangesAsync();
         }
         public void Dispose()
         {
-            _context.Dispose();
+            Context.Dispose();
         }
     }
 }
