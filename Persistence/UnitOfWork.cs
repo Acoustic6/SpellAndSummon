@@ -6,6 +6,7 @@ namespace SpellAndSummon.Persistence {
     public class UnitOfWork: IUnitOfWork 
     {
         public ICardsRepository Cards { get; private set; }
+        public ISpecialAbilitiesRepository SpecialAbilities { get; private set; }
         private readonly SummonDbContext Context;
         public UnitOfWork (SummonDbContext context) 
         {
